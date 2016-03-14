@@ -28,7 +28,8 @@ PKG_URL=""
 PKG_DEPENDS_TARGET="retroarch retroarch-assets core-info retroarch-joypad-autoconfig common-shaders libretro-database \
 prosystem o2em 81 fuse-libretro gw-libretro beetle-sgx genesis-plus-gx mupen64plus lutro gpsp ppsspp 2048 beetle-vb \
 beetle-wswan beetle-ngp pcsx_rearmed vecx snes9x-next dinothawr prboom beetle-pce handy picodrive nxengine nestopia \
-gambatte stella fba libretro-ffmpeg"
+gambatte stella fba libretro-ffmpeg \
+4do cap32 desmume fceumm meteor virtualjaguar yabause"
 PKG_PRIORITY="optional"
 PKG_SECTION="emulator"
 PKG_SHORTDESC="Retroarch addon."
