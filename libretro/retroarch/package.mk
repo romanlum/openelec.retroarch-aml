@@ -78,6 +78,9 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-vg \
                            --enable-zlib \
                            --enable-freetype"
 
+RA_PLAYLIST_NAMES="Atari - 2600.lpl;Atari - 5200.lpl;Atari - 7800.lpl;Atari - Jaguar.lpl;Atari - Lynx.lpl;Atari - ST.lpl;Bandai - WonderSwan Color.lpl;Bandai - WonderSwan.lpl;Coleco - ColecoVision.lpl;DOOM.lpl;FB Alpha - Arcade Games.lpl;GCE - Vectrex.lpl;Magnavox - Odyssey2.lpl;MAME.lpl;Microsoft - MSX2.lpl;Microsoft - MSX.lpl;NEC - PC Engine SuperGrafx.lpl;NEC - PC Engine - TurboGrafx 16.lpl;Nintendo - Famicom Disk System.lpl;Nintendo - Game Boy Advance (e-Cards).lpl;Nintendo - Game Boy Advance.lpl;Nintendo - Game Boy Color.lpl;Nintendo - Game Boy.lpl;Nintendo - Nintendo 64.lpl;Nintendo - Nintendo DS Decrypted.lpl;Nintendo - Nintendo DS (Download Play) (BETA).lpl;Nintendo - Nintendo DSi Decrypted.lpl;Nintendo - Nintendo DSi (DLC).lpl;Nintendo - Nintendo Entertainment System.lpl;Nintendo - Satellaview.lpl;Nintendo - Super Nintendo Entertainment System.lpl;Nintendo - Virtual Boy.lpl;Quake1.lpl;ScummVM.lpl;Sega - 32X.lpl;Sega - Game Gear.lpl;Sega - Master System - Mark III.lpl;Sega - Mega Drive - Genesis.lpl;Sega - PICO.lpl;Sega - SG-1000.lpl;Sinclair - ZX Spectrum +3.lpl;SNK - Neo Geo Pocket Color.lpl;SNK - Neo Geo Pocket.lpl;Sony - PlayStation Portable.lpl;Sony - PlayStation.lpl"
+RA_PLAYLIST_CORES="/tmp/cores/stella_libretro.so;DETECT;/tmp/cores/prosystem_libretro.so;/tmp/cores/virtualjaguar_libretro.so;/tmp/cores/handy_libretro.so;/tmp/cores/hatari_libretro.so;/tmp/cores/mednafen_wswan_libretro.so;/tmp/cores/mednafen_wswan_libretro.so;/tmp/cores/bluemsx_libretro.so;/tmp/cores/prboom_libretro.so;/tmp/cores/fba_libretro.so;/tmp/cores/vecx_libretro.so;/tmp/cores/o2em_libretro.so;/tmp/cores/mame_libretro.so;/tmp/cores/bluemsx_libretro.so;/tmp/cores/bluemsx_libretro.so;/tmp/cores/mednafen_supergrafx_libretro.so;/tmp/cores/mednafen_pce_fast_libretro.so;/tmp/cores/nestopia_libretro.so;/tmp/cores/gpsp_libretro.so;/tmp/cores/gpsp_libretro.so;/tmp/cores/gambatte_libretro.so;/tmp/cores/gambatte_libretro.so;/tmp/cores/mupen64plus_libretro.so;/tmp/cores/desmume_libretro.so;/tmp/cores/desmume_libretro.so;/tmp/cores/desmume_libretro.so;/tmp/cores/desmume_libretro.so;/tmp/cores/nestopia_libretro.so;/tmp/cores/snes9x_next_libretro.so;/tmp/cores/snes9x_next_libretro.so;/tmp/cores/mednafen_vb_libretro.so;/tmp/cores/tyrquake_libretro.so;/tmp/cores/scummvm_libretro.so;/tmp/cores/picodrive_libretro.so;/tmp/cores/genesis_plus_gx_libretro.so;/tmp/cores/genesis_plus_gx_libretro.so;/tmp/cores/genesis_plus_gx_libretro.so;/tmp/cores/picodrive_libretro.so;/tmp/cores/genesis_plus_gx_libretro.so;/tmp/cores/fuse_libretro.so;/tmp/cores/mednafen_ngp_libretro.so;/tmp/cores/mednafen_ngp_libretro.so;/tmp/cores/ppsspp_libretro.so;/tmp/cores/pcsx_rearmed_libretro.so"
+
 pre_configure_target() {
   strip_lto # workaround for https://github.com/libretro/RetroArch/issues/1078
   cd $ROOT/$PKG_BUILD
@@ -102,11 +105,10 @@ makeinstall_target() {
     cp $ROOT/$PKG_BUILD/audio/audio_filters/*.dsp $INSTALL/usr/share/audio_filters
   
   # General configuration
-  sed -i -e "s/# libretro_path = \"\/path\/to\/libretro.so\"/libretro_path = \"\/tmp\/cores\"/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# libretro_info_path =/libretro_info_path = \"\/tmp\/cores\"/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# rgui_browser_directory =/rgui_browser_directory =\/storage\/roms/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# core_assets_directory =/core_assets_directory =\/storage\/roms/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# content_database_path =/content_database_path =\/tmp\/database\/rdb/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# libretro_path = \"\/path\/to\/libretro.so\"/libretro_path = \"\/storage\/.kodi\/addons\/emulator.tools.retroarch\/lib\"/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# libretro_info_path =/libretro_info_path = \"\/storage\/.kodi\/addons\/emulator.tools.retroarch\/lib\"/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# core_assets_directory =/core_assets_directory =\/storage\/.kodi\/userdata\/addon_data\/emulator.tools.retroarch\/downloads/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# content_database_path =/content_database_path =\/storage\/.kodi\/addons\/emulator.tools.retroarch\/database\/rdb/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# playlist_directory =/playlist_directory =\/storage\/playlists/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# savefile_directory =/savefile_directory =\/storage\/savefiles/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# savestate_directory =/savestate_directory =\/storage\/savestates/" $INSTALL/etc/retroarch.cfg
@@ -114,8 +116,8 @@ makeinstall_target() {
   sed -i -e "s/# screenshot_directory =/screenshot_directory =\/storage\/screenshots/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# video_shader_dir =/video_shader_dir =\/usr\/share\/common-shaders/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# rgui_show_start_screen = true/rgui_show_start_screen = false/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# assets_directory =/assets_directory =\/tmp\/assets/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# cheat_database_path =/cheat_database_path =\/tmp\/database\/cht/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# assets_directory =/assets_directory =\/storage\/.kodi\/addons\/emulator.tools.retroarch\/assets/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# cheat_database_path =/cheat_database_path =\/storage\/.kodi\/addons\/emulator.tools.retroarch\/database\/cht/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# menu_driver = \"rgui\"/menu_driver = \"xmb\"/" $INSTALL/etc/retroarch.cfg
   
   # Video
@@ -131,15 +133,12 @@ makeinstall_target() {
   # Audio
   sed -i -e "s/# audio_driver =/audio_driver = \"alsathread\"/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# audio_filter_dir =/audio_filter_dir =\/usr\/share\/audio_filters/" $INSTALL/etc/retroarch.cfg
-  if [ "$PROJECT" == "OdroidXU3" ]; then # workaround the 55fps bug
-    sed -i -e "s/# audio_out_rate = 48000/audio_out_rate = 44100/" $INSTALL/etc/retroarch.cfg
-  fi
   
   # Input
   sed -i -e "s/# input_driver = sdl/input_driver = udev/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# input_max_users =/input_max_users = 5/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# input_autodetect_enable = true/input_autodetect_enable = true/" $INSTALL/etc/retroarch.cfg
-  sed -i -e "s/# joypad_autoconfig_dir =/joypad_autoconfig_dir = \/tmp\/joypads/" $INSTALL/etc/retroarch.cfg
+  sed -i -e "s/# joypad_autoconfig_dir =/joypad_autoconfig_dir = \/storage\/.kodi\/addons\/emulator.tools.retroarch\/joypads/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# input_remapping_directory =/input_remapping_directory = \/storage\/remappings/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# input_menu_toggle_gamepad_combo =/input_menu_toggle_gamepad_combo = \"2\"/" $INSTALL/etc/retroarch.cfg
 
@@ -147,24 +146,7 @@ makeinstall_target() {
   sed -i -e "s/# menu_core_enable = true/menu_core_enable = false/" $INSTALL/etc/retroarch.cfg
   sed -i -e "s/# boxarts_directory =/boxarts_directory = \/storage\/boxarts/" $INSTALL/etc/retroarch.cfg
 
-  # Updater
-  if [ "$ARCH" == "arm" ]; then
-    sed -i -e "s/# core_updater_buildbot_url = \"http:\/\/buildbot.libretro.com\"/core_updater_buildbot_url = \"http:\/\/buildbot.libretro.com\/nightly\/linux\/armhf\/latest\/\"/" $INSTALL/etc/retroarch.cfg
-  fi
-  
   # Playlists
   echo "playlist_names = \"$RA_PLAYLIST_NAMES\"" >> $INSTALL/etc/retroarch.cfg
   echo "playlist_cores = \"$RA_PLAYLIST_CORES\"" >> $INSTALL/etc/retroarch.cfg
-}
-
-post_install() {  
-  # link default.target to retroarch.target
-  ln -sf retroarch.target $INSTALL/usr/lib/systemd/system/default.target
-  
-  enable_service retroarch-autostart.service
-  enable_service retroarch.service
-  enable_service tmp-cores.mount
-  enable_service tmp-joypads.mount
-  enable_service tmp-database.mount
-  enable_service tmp-assets.mount
 }
