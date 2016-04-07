@@ -26,6 +26,7 @@ RETROARCH_CONFIG_DIR="$ADDON_HOME/config"
 RETROARCH_CONFIG_FILE="$RETROARCH_CONFIG_DIR/retroarch.cfg"
 RETROARCH_SAVEFILES_DIR="$ADDON_HOME/savefiles"
 RETROARCH_SYSTEM_DIR="$ADDON_HOME/system"
+RETROARCH_SHADERS_DIR="$ADDON_HOME/shaders"
 
 chmod a+x $ADDON_DIR/bin/*
 
@@ -35,6 +36,11 @@ if [ ! -f "$RETROARCH_CONFIG_FILE" ]; then
   if [ -f $ADDON_DIR/config/retroarch.cfg ]; then
     cp $ADDON_DIR/config/retroarch.cfg $RETROARCH_CONFIG_FILE
   fi
+fi
+
+if [ ! -f "$RETROARCH_SHADERS_DIR" ]; then
+  mkdir -p $RETROARCH_SHADERS_DIR
+  cp -PR $ADDON_DIR/shaders/* $RETROARCH_SHADERS_DIR/
 fi
 
 if [ ! -f "$RETROARCH_SAVEFILES_DIR" ]; then

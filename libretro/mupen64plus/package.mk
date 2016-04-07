@@ -40,8 +40,8 @@ pre_configure_target() {
 }
 
 make_target() {
-  DYNAREC=$ARCH
-
+  DYNAREC=$TARGET_ARCH
+	
   if [ "$ARCH" == "i386" ]; then
     DYNAREC=x86
   fi
