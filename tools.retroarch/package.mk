@@ -25,7 +25,7 @@ PKG_ARCH="any"
 PKG_LICENSE="free as freedom"
 PKG_SITE="https://github.com/libretro/Lakka"
 PKG_URL=""
-PKG_DEPENDS_TARGET="retroarch retroarch-assets core-info retroarch-joypad-autoconfig"
+PKG_DEPENDS_TARGET="retroarch retroarch-assets common-shaders core-info retroarch-joypad-autoconfig snes9x-next genesis-plus-gx mupen64plus emulationstation"
 PKG_PRIORITY="optional"
 PKG_SECTION="emulator"
 PKG_SHORTDESC="Retroarch addon."
@@ -49,9 +49,11 @@ addon() {
 
   mkdir -p  $ADDON_BUILD/$PKG_ADDON_ID/config/joypad_autoconfig/
   mkdir -p  $ADDON_BUILD/$PKG_ADDON_ID/assets
+  mkdir -p  $ADDON_BUILD/$PKG_ADDON_ID/shaders
 
   cp -PR $ADDON_BUILD/$PKG_ADDON_ID/etc/retroarch-joypad-autoconfig/* $ADDON_BUILD/$PKG_ADDON_ID/config/joypad_autoconfig/
   cp -PR $ADDON_BUILD/$PKG_ADDON_ID/usr/share/retroarch-assets/* $ADDON_BUILD/$PKG_ADDON_ID/assets/
+  cp -PR $ADDON_BUILD/$PKG_ADDON_ID/usr/share/common-shaders/* $ADDON_BUILD/$PKG_ADDON_ID/shaders/
 
   # Copy and cleanup
   cp -PR $ADDON_BUILD/$PKG_ADDON_ID/usr/lib/udev/rules.d $ADDON_BUILD/$PKG_ADDON_ID/udev.d
