@@ -31,6 +31,7 @@ chmod a+x $ADDON_DIR/bin/*
 
 if [ ! -f "$RETROARCH_CONFIG_FILE" ]; then
   mkdir -p $RETROARCH_CONFIG_DIR
+  cp -PR $ADDON_DIR/config/* $RETROARCH_CONFIG_DIR/
   if [ -f $ADDON_DIR/config/retroarch.cfg ]; then
     cp $ADDON_DIR/config/retroarch.cfg $RETROARCH_CONFIG_FILE
   fi

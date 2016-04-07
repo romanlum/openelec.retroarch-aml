@@ -25,11 +25,7 @@ PKG_ARCH="any"
 PKG_LICENSE="free as freedom"
 PKG_SITE="https://github.com/libretro/Lakka"
 PKG_URL=""
-PKG_DEPENDS_TARGET="retroarch retroarch-assets core-info retroarch-joypad-autoconfig common-shaders libretro-database \
-prosystem o2em 81 fuse-libretro gw-libretro beetle-sgx genesis-plus-gx mupen64plus lutro gpsp ppsspp 2048 beetle-vb \
-beetle-wswan beetle-ngp pcsx_rearmed vecx snes9x-next dinothawr prboom beetle-pce handy picodrive nxengine nestopia \
-gambatte stella fba libretro-ffmpeg \
-4do cap32 desmume fceumm meteor virtualjaguar yabause"
+PKG_DEPENDS_TARGET="retroarch retroarch-assets core-info retroarch-joypad-autoconfig"
 PKG_PRIORITY="optional"
 PKG_SECTION="emulator"
 PKG_SHORTDESC="Retroarch addon."
@@ -45,12 +41,17 @@ PKG_AUTORECONF="no"
 addon() {
   # Hack: install retroarch with dependencies first, then clean install stamps and install retroarch + cores to addon dir
   scripts/install retroarch
-  scripts/install libretro-ffmpeg
 
   for i in $PKG_DEPENDS_TARGET; do
     rm -rf $STAMPS_INSTALL/$i
     INSTALL="$ADDON_BUILD/$PKG_ADDON_ID" scripts/install $i
   done
+
+  mkdir -p  $ADDON_BUILD/$PKG_ADDON_ID/config/joypad_autoconfig/
+  mkdir -p  $ADDON_BUILD/$PKG_ADDON_ID/assets
+
+  cp -PR $ADDON_BUILD/$PKG_ADDON_ID/etc/retroarch-joypad-autoconfig/* $ADDON_BUILD/$PKG_ADDON_ID/config/joypad_autoconfig/
+  cp -PR $ADDON_BUILD/$PKG_ADDON_ID/usr/share/retroarch-assets/* $ADDON_BUILD/$PKG_ADDON_ID/assets/
 
   # Copy and cleanup
   cp -PR $ADDON_BUILD/$PKG_ADDON_ID/usr/lib/udev/rules.d $ADDON_BUILD/$PKG_ADDON_ID/udev.d
