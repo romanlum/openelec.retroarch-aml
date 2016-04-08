@@ -27,9 +27,8 @@ PKG_SITE="http://freeimage.sourceforge.net"
 PKG_URL="https://sourceforge.net/projects/freeimage/files/Source%20Distribution/3.17.0/$PKG_NAME$PKG_VERSION.zip"
 PKG_DEPENDS_TARGET="toolchain"
 PKG_PRIORITY="optional"
-PKG_SHORTDESC="Reference frontend for the libretro API."
-PKG_LONGDESC="RetroArch is the reference frontend for the libretro API. Popular examples of implementations for this API includes videogame system emulators and game engines, but also more generalized 3D programs. These programs are instantiated as dynamic libraries. We refer to these as libretro cores."
-
+PKG_SHORTDESC="Open Source library project for developers who would like to support popular graphics image formats"
+PKG_LONGDESC="FreeImage is an Open Source library project for developers who would like to support popular graphics image formats like PNG, BMP, JPEG, TIFF and others as needed by today's multimedia applications. FreeImage is easy to use, fast, multithreading safe, compatible with all 32-bit or 64-bit versions of Windows, and cross-platform (works both with Linux and Mac OS X)."
 PKG_IS_ADDON="no"
 
 unpack() {
