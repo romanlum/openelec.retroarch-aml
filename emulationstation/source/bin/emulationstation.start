@@ -1,0 +1,43 @@
+#!/bin/sh
+
+################################################################################
+#      This file is part of OpenELEC - http://www.openelec.tv
+#      Copyright (C) 2009-2014 Stephan Raue (stephan@openelec.tv)
+#
+#  OpenELEC is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 2 of the License, or
+#  (at your option) any later version.
+#
+#  OpenELEC is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with OpenELEC.  If not, see <http://www.gnu.org/licenses/>.
+################################################################################
+
+. /etc/profile
+
+oe_setup_addon emulationstation
+
+#configuration directory which is visible for the user
+CONFIG_DIR="$ADDON_HOME/config"
+
+#hidden config dir used by emulationstation :(
+ES_CONFIG_DIR="$ADDON_HOME/.emulationstation"
+CONFIG_FILE="$ES_CONFIG_DIR/es_systems.cfg"
+
+
+if [ ! -f "$CONFIG_FILE" ]; then
+  mkdir -p $ES_CONFIG_DIR
+  cp -PR $ADDON_DIR/config/* $ES_CONFIG_DIR/
+  ln -s $ES_CONFIG_DIR $CONFIG_DIR
+fi
+
+
+systemctl stop kodi
+#set HOME to addon dir
+HOME=$ADDON_DIR LD_LIBRARY=$ADDON_DIR/lib/ $ADDON_DIR/bin/emulationstation 
+systemctl start kodi

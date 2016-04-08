@@ -24,12 +24,14 @@ PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/Aloshi/EmulationStation"
-PKG_URL="http://update.lumetsnet.at/$PKG_NAME-$PKG_VERSION.tar.xz"
+PKG_GIT_URL="https://github.com/RetroPie/EmulationStation"
+PKG_GIT_BRANCH="master"
+
 PKG_DEPENDS_TARGET="toolchain boost freetype curl alsa-lib SDL2 FreeImage eigen"
 PKG_PRIORITY="optional"
-PKG_SECTION="libretro"
-PKG_SHORTDESC="Reference frontend for the libretro API."
-PKG_LONGDESC="RetroArch is the reference frontend for the libretro API. Popular examples of implementations for this API includes videogame system emulators and game engines, but also more generalized 3D programs. These programs are instantiated as dynamic libraries. We refer to these as libretro cores."
+
+PKG_SHORTDESC="A cross-platform graphical front-end for emulators with controller navigation."
+PKG_LONGDESC=""
 
 PKG_ADDON_NAME="emulationstation"
 PKG_ADDON_TYPE="xbmc.python.script"
@@ -42,3 +44,17 @@ configure_target() {
         -DCMAKE_INSTALL_PREFIX=/usr \
         ..
 }
+
+addon() {
+  mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/bin
+  mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/lib
+
+  cp -P  $PKG_BUILD/.install_pkg/usr/bin/emulationstation $ADDON_BUILD/$PKG_ADDON_ID/bin/emulationstation
+
+  # FreeImage
+  cp -PL $(get_build_dir FreeImage)/.install_pkg/usr/lib/* $ADDON_BUILD/$PKG_ADDON_ID/lib
+
+
+
+}
+
