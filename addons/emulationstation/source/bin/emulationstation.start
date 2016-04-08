@@ -29,11 +29,14 @@ CONFIG_DIR="$ADDON_HOME/config"
 ES_CONFIG_DIR="$ADDON_HOME/.emulationstation"
 CONFIG_FILE="$ES_CONFIG_DIR/es_systems.cfg"
 
+THEME_DIR="$ES_CONFIG_DIR/themes/"
 
 if [ ! -f "$CONFIG_FILE" ]; then
   mkdir -p $ES_CONFIG_DIR
   cp -PR $ADDON_DIR/config/* $ES_CONFIG_DIR/
   ln -s $ES_CONFIG_DIR $CONFIG_DIR
+
+  cp -PR $ADDON_DIR/themes/* $THEME_DIR
 fi
 
 

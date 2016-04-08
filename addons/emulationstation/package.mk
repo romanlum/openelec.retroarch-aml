@@ -26,8 +26,9 @@ PKG_LICENSE="GPLv3"
 PKG_SITE="https://github.com/Aloshi/EmulationStation"
 PKG_GIT_URL="https://github.com/RetroPie/EmulationStation"
 PKG_GIT_BRANCH="master"
+PKG_SECTION="emulator"
 
-PKG_DEPENDS_TARGET="toolchain boost freetype curl alsa-lib SDL2 FreeImage eigen"
+PKG_DEPENDS_TARGET="toolchain boost freetype curl alsa-lib SDL2 FreeImage eigen es-theme-simple-dark"
 PKG_PRIORITY="optional"
 
 PKG_SHORTDESC="A cross-platform graphical front-end for emulators with controller navigation."
@@ -48,11 +49,15 @@ configure_target() {
 addon() {
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/bin
   mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/lib
+  mkdir -p $ADDON_BUILD/$PKG_ADDON_ID/themes
 
   cp -P  $PKG_BUILD/.install_pkg/usr/bin/emulationstation $ADDON_BUILD/$PKG_ADDON_ID/bin/emulationstation
 
   # FreeImage
-  cp -PL $(get_build_dir FreeImage)/.install_pkg/usr/lib/* $ADDON_BUILD/$PKG_ADDON_ID/lib
+  cp -P $(get_build_dir FreeImage)/.install_pkg/usr/lib/* $ADDON_BUILD/$PKG_ADDON_ID/lib
+
+  # theme
+  cp -RP $(get_build_dir es-theme-simple-dark)/.install_pkg/etc/emulationstation/themes/* $ADDON_BUILD/$PKG_ADDON_ID/themes/
 
 
 
