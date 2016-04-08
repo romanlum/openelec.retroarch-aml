@@ -7,4 +7,6 @@
 
 oe_setup_addon emulator.tools.retroarch
 
-$ADDON_DIR/bin/retroarch.start "$@"
+systemctl stop kodi
+systemd-run $ADDON_DIR/bin/retroarch.start "$@"
+systemctl start kodi

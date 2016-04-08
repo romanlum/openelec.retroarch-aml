@@ -28,7 +28,12 @@ RETROARCH_SAVEFILES_DIR="$ADDON_HOME/savefiles"
 RETROARCH_SYSTEM_DIR="$ADDON_HOME/system"
 RETROARCH_SHADERS_DIR="$ADDON_HOME/shaders"
 
+RETROARCH_EMULATOR_HOME="/storage/emulators/retroarch"
+RETROARCH_EMULATOR_LINK="$RETROARCH_EMULATOR_HOME/retroarch.sh"
+RETROARCH_EMULATOR_STANDLONE_LINK="$RETROARCH_EMULATOR_HOME/retroarch_standalone.sh"
+
 chmod a+x $ADDON_DIR/bin/*
+
 
 if [ ! -f "$RETROARCH_CONFIG_FILE" ]; then
   mkdir -p $RETROARCH_CONFIG_DIR
@@ -51,6 +56,11 @@ if [ ! -f "$RETROARCH_SYSTEM_DIR" ]; then
   mkdir -p $RETROARCH_SYSTEM_DIR
 fi
 
-systemctl stop kodi
+if [ ! -f "$RETROARCH_EMULATOR_LINK" ]; then
+  mkdir -p $RETROARCH_EMULATOR_HOME
+  ln -s $ADDON_DIR/bin/retroarch.sh $RETROARCH_EMULATOR_LINK
+  ln -s $ADDON_DIR/bin/retroarch_standalone.sh $RETROARCH_EMULATOR_STANDLONE_LINK
+fi
+
+
 $ADDON_DIR/bin/retroarch -c $RETROARCH_CONFIG_FILE -L $ADDON_DIR/lib/libretro/$1_libretro.so "$2"
-systemctl start kodi
