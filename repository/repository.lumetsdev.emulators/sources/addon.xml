@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.unofficial.addon.pro"
+                name="[COLOR FF757677]Open[/COLOR][COLOR FF8ABEE2]ELEC[/COLOR] Add-ons (unofficial)"
+                version="@PKG_VERSION@.@PKG_REV@"
+                provider-name="OpenELEC Community">
+        <extension point="xbmc.addon.repository"
+                name="OpenELEC Add-ons (unofficial)">
+                <dir minversion="15.9.0">
+                    <info>https://my.sofortcloud.com/index.php/s/GiZoq9Y8XAAHnxW/download?path=%2F&amp;files=emulators%2F8.0%2F@PROJECT@%2F@ARCH@%2Faddons.xml</info>
+                    <checksum>https://my.sofortcloud.com/index.php/s/GiZoq9Y8XAAHnxW/download?path=%2F&amp;files=emulators%2F8.0%2F@PROJECT@%2F@ARCH@%2Faddons.xml.md5</checksum>
+                    <datadir zip="true">https://my.sofortcloud.com/index.php/s/GiZoq9Y8XAAHnxW/download?path=%2F&amp;files=emulators%F8.0%F@PROJECT@%F@ARCH@</datadir>
+                </dir>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+                <summary>OpenELEC.tv emulator  Add-ons</summary>
+                <description>Emulator addons for linux.  Please check the OpenELEC or Kodi forums for community support threads and ask the add-on author to submit fixes via GitHub.</description>
+                <disclaimer>Add-ons in this repository are not maintained or supported by OpenELEC staff.</disclaimer>
+                <platform>all</platform>
+        </extension>
+</addon>
